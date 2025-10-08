@@ -31,7 +31,9 @@ body{
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border-radius:12px;
   padding:14px;
-  box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+  :root {
+    --spring: cubic-bezier(.68,-0.6,.32,1.6); /* easeOutBack */
+  }
   display:flex;
   flex-direction:column;
   border:1px solid rgba(123,76,255,0.08);
@@ -84,6 +86,21 @@ body{
 }
 
 .note-item{
+  .note-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:10px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .18s var(--spring), transform .18s var(--spring);
+  }
+  .note-item:hover{
+    background:rgba(123,76,255,0.09);
+    transform:scale(1.04) translateY(-2px);
+    box-shadow:0 2px 12px rgba(123,76,255,0.10);
+  }
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -195,6 +212,18 @@ body{
   border:none;
   outline:none;
   background:transparent;
+  .editor-actions button{
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid rgba(123,76,255,0.12);
+    background:linear-gradient(180deg,var(--panel), rgba(255,255,255,0.01));
+    color:var(--accent-2);
+    transition:transform .18s var(--spring), box-shadow .18s var(--spring);
+  }
+  .editor-actions button:hover {
+    transform:scale(1.07);
+    box-shadow:0 2px 12px rgba(123,76,255,0.10);
+  }
   color:var(--text);
   font-size:15px;
   line-height:1.5;
@@ -235,11 +264,32 @@ body{
 .auth-actions{display:flex;gap:8px;margin:10px 0}
 .primary{background:linear-gradient(180deg,var(--accent),var(--accent-2));border:none;color:#08070b;padding:8px 12px;border-radius:8px;cursor:pointer}
 
+    transition:transform .5s var(--spring), box-shadow .5s var(--spring);
+  }
+  .auth-card.spring-enter {
+    animation:springIn .7s var(--spring);
+  }
+  .auth-card.spring-leave {
+    animation:springOut .5s var(--spring);
+  }
 /* Responsivo */
 @media (max-width:900px){
   #sidebar{width:260px}
 }
 @media (max-width:720px){
+  .primary{
+    background:linear-gradient(180deg,var(--accent),var(--accent-2));
+    border:none;
+    color:#08070b;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:transform .18s var(--spring), box-shadow .18s var(--spring);
+  }
+  .primary:hover {
+    transform:scale(1.08);
+    box-shadow:0 2px 12px rgba(123,76,255,0.10);
+  }
   #app{flex-direction:column;padding:12px}
   #sidebar{width:100%;order:2}
   #editorWrap{order:1}

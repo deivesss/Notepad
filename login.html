@@ -16,27 +16,42 @@
 <body>
   <main class="auth-page">
     <section class="auth-card">
-      <h2>Entrar no Notepad</h2>
-      <p class="muted">Escolha um método de autenticação</p>
-
-      <div class="auth-actions">
-        <button id="googleBtn" class="primary">Entrar com Google</button>
+      <div id="formToggle" style="display:flex;justify-content:center;gap:16px;margin-bottom:16px;">
+        <button id="showLoginBtn" class="primary" type="button">Entrar</button>
+        <button id="showRegisterBtn" type="button">Criar conta</button>
       </div>
 
-      <hr />
-
-      <form id="emailForm">
-        <label for="email">Email</label>
-        <input id="email" type="email" required />
-        <label for="password">Senha</label>
-        <input id="password" type="password" required />
+      <form id="loginForm">
+        <h2>Entrar no Notepad</h2>
+        <p class="muted">Escolha um método de autenticação</p>
+        <div class="auth-actions">
+          <button id="googleBtn" class="primary" type="button">Entrar com Google</button>
+        </div>
+        <hr />
+        <label for="loginEmail">Email</label>
+        <input id="loginEmail" type="email" required />
+        <label for="loginPassword">Senha</label>
+        <input id="loginPassword" type="password" required />
         <div style="display:flex;gap:8px;margin-top:10px;">
-          <button type="submit" class="primary">Entrar / Criar conta</button>
-          <button type="button" id="backBtn">Voltar</button>
+          <button type="submit" class="primary">Entrar</button>
         </div>
       </form>
 
-      <div class="auth-footer muted">Ao entrar, suas notas serão sincronizadas com a sua conta (Firestore).</div>
+      <form id="registerForm" style="display:none">
+        <h2>Criar conta</h2>
+        <label for="registerEmail">Email</label>
+        <input id="registerEmail" type="email" required />
+        <label for="registerPassword">Senha</label>
+        <input id="registerPassword" type="password" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':&quot;\\|,.<>\/?]).{8,}$" />
+        <small class="muted">A senha deve ter pelo menos 8 caracteres, incluindo maiúscula, minúscula, número e símbolo.</small>
+        <label for="registerPasswordConfirm">Confirme a senha</label>
+        <input id="registerPasswordConfirm" type="password" required />
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button type="submit" class="primary">Criar conta</button>
+        </div>
+      </form>
+
+      <div class="auth-footer muted">Ao entrar, suas notas serão salvas automaticamente.</div>
     </section>
   </main>
 </body>
