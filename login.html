@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Entrar — Notepad</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#0b0b0f">
+  <!-- Firebase SDKs (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js" onerror="console.info('firebase-config.js não encontrado — crie a partir de firebase-config.sample.js')"></script>
+  <script defer src="login.js"></script>
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-card">
+      <h2>Entrar no Notepad</h2>
+      <p class="muted">Escolha um método de autenticação</p>
+
+      <div class="auth-actions">
+        <button id="googleBtn" class="primary">Entrar com Google</button>
+      </div>
+
+      <hr />
+
+      <form id="emailForm">
+        <label for="email">Email</label>
+        <input id="email" type="email" required />
+        <label for="password">Senha</label>
+        <input id="password" type="password" required />
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button type="submit" class="primary">Entrar / Criar conta</button>
+          <button type="button" id="backBtn">Voltar</button>
+        </div>
+      </form>
+
+      <div class="auth-footer muted">Ao entrar, suas notas serão sincronizadas com a sua conta (Firestore).</div>
+    </section>
+  </main>
+</body>
+</html>

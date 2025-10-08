@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notepad — Black & Purple</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#0b0b0f">
+    <script defer src="script.js"></script>
+    <!-- Firebase SDKs (compat) - crie firebase-config.js com suas credenciais ou defina window.FIREBASE_CONFIG -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js" onerror="console.info('firebase-config.js não encontrado — crie a partir de firebase-config.sample.js')"></script>
+</head>
+<body>
+    <div id="app">
+        <aside id="sidebar">
+            <header class="sidebar-header">
+                <h1>Notepad</h1>
+                <button id="newNoteBtn" title="Nova nota">+</button>
+            </header>
+
+            <div class="search-wrap">
+                <input id="search" placeholder="Pesquisar notas..." aria-label="Pesquisar notas" />
+            </div>
+
+            <ul id="notesList" class="notes-list" role="list"></ul>
+
+            <footer class="sidebar-footer">
+                <div id="authWrap" class="auth-wrap">
+                    <button id="loginBtn">Entrar</button>
+                    <button id="logoutBtn" style="display:none">Sair</button>
+                </div>
+                <button id="exportBtn">Exportar</button>
+                <input id="importInput" type="file" accept="application/json" style="display:none" />
+                <button id="importBtn">Importar</button>
+                <button id="clearAllBtn" title="Apagar todas as notas">Limpar</button>
+            </footer>
+        </aside>
+
+        <main id="editorWrap">
+            <div class="editor-header">
+                <input id="noteTitle" placeholder="Título da nota" />
+                <div class="editor-actions">
+                    <button id="downloadBtn" title="Baixar .txt">Baixar</button>
+                    <button id="deleteBtn" title="Excluir nota">Excluir</button>
+                </div>
+            </div>
+
+            <textarea id="editor" spellcheck="true" placeholder="Escreva sua nota aqui..."></textarea>
+
+            <div class="status-bar">
+                <span id="status">Sem notas — clique em + para criar</span>
+            </div>
+        </main>
+    </div>
+
+    <template id="noteItemTpl">
+        <li class="note-item" data-id="">
+            <div class="note-left">
+                <strong class="note-title"></strong>
+                <small class="note-meta"></small>
+            </div>
+            <div class="note-right">
+                <button class="open-btn" title="Abrir">Abrir</button>
+            </div>
+        </li>
+    </template>
+
+</body>
+</html>
