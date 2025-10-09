@@ -19,6 +19,7 @@
             <header class="sidebar-header">
                 <h1>Notepad</h1>
                 <button id="newNoteBtn" title="Nova nota">+</button>
+                <button id="sidebarToggleBtn" title="Mostrar/Esconder menu" style="font-size:22px;padding:8px 12px;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;border:none;box-shadow:0 2px 8px rgba(123,76,255,0.12);margin-left:8px;">☰</button>
             </header>
 
             <div class="search-wrap">
@@ -41,12 +42,15 @@
 
         <main id="editorWrap">
             <div class="editor-header">
+                <button id="sidebarToggleBtnMobile" title="Menu" style="font-size:22px;padding:8px 12px;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;border:none;box-shadow:0 2px 8px rgba(123,76,255,0.12);display:none;margin-right:8px;">☰</button>
                 <input id="noteTitle" placeholder="Título da nota" />
                 <div class="editor-actions">
                     <button id="downloadBtn" title="Baixar .txt">Baixar</button>
                     <button id="deleteBtn" title="Excluir nota">Excluir</button>
                 </div>
             </div>
+</main>
+<button id="showSidebarBtn" title="Mostrar menu" style="position:fixed;top:18px;left:18px;z-index:200;font-size:28px;padding:10px 16px;border-radius:12px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;border:none;box-shadow:0 2px 12px rgba(123,76,255,0.18);display:none;">☰</button>
 
             <textarea id="editor" spellcheck="true" placeholder="Escreva sua nota aqui..."></textarea>
 

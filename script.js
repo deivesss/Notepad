@@ -24,11 +24,17 @@ const importInput = $('#importInput');
 const clearAllBtn = $('#clearAllBtn');
 const downloadBtn = $('#downloadBtn');
 const deleteBtn = $('#deleteBtn');
+const sidebar = document.getElementById('sidebar');
+const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+const sidebarToggleBtnMobile = document.getElementById('sidebarToggleBtnMobile');
+const showSidebarBtn = document.getElementById('showSidebarBtn');
 
 // Estado
 let notes = []; // { id, title, content, updated }
 let currentId = null;
 const STORAGE_KEY = 'notepad_notes_v1';
+const LAST_NOTE_KEY = 'notepad_last_note';
+const THEME_KEY = 'notepad_theme';
 
 // Firebase (opcional)
 let firebaseApp = null;
@@ -132,6 +138,12 @@ function openNote(id) {
   if (!note) return;
   populateEditor(note);
   setStatus('Nota aberta — ' + (note.title || 'Sem título'));
+  // Salva última nota visitada
+  if (currentUser) {
+    localStorage.setItem(LAST_NOTE_KEY + '_' + currentUser, id);
+  } else {
+    localStorage.setItem(LAST_NOTE_KEY, id);
+  }
 }
 
 function saveCurrentNote() {
@@ -255,6 +267,10 @@ async function initFirebaseIfAvailable() {
           saveToStorage();
         }
         renderNotes();
+        // Redireciona para última nota visitada ou primeira
+        let lastId = localStorage.getItem(LAST_NOTE_KEY + '_' + currentUser);
+        if (!lastId && notes.length) lastId = notes[0].id;
+        if (lastId) openNote(lastId);
       } else {
         currentUser = null;
         loginBtn.style.display = '';
@@ -320,6 +336,22 @@ logoutBtn?.addEventListener('click', async () => {
 });
 
 // Eventos
+// Responsividade do menu lateral
+function toggleSidebar() {
+  if (!sidebar) return;
+  const collapsed = sidebar.classList.toggle('collapsed');
+  if (collapsed) {
+    showSidebarBtn.style.display = 'block';
+  } else {
+    showSidebarBtn.style.display = 'none';
+  }
+}
+sidebarToggleBtn?.addEventListener('click', toggleSidebar);
+sidebarToggleBtnMobile?.addEventListener('click', toggleSidebar);
+showSidebarBtn?.addEventListener('click', () => {
+  sidebar.classList.remove('collapsed');
+  showSidebarBtn.style.display = 'none';
+});
 newNoteBtn.addEventListener('click', newNote);
 exportBtn.addEventListener('click', exportNotes);
 importBtn.addEventListener('click', () => importInput.click());
@@ -371,11 +403,23 @@ window.addEventListener('keydown', (e) => {
 });
 
 // Inicialização
+// Sempre aplica o tema escuro
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', 'dark');
+}
+
 function init() {
   notes = loadFromStorage();
+  let lastId = localStorage.getItem(LAST_NOTE_KEY);
   if (notes.length) {
-    currentId = notes[0].id;
-    populateEditor(notes[0]);
+    // Se houver última nota, abre ela, senão a primeira
+    if (lastId && notes.find(n => n.id === lastId)) {
+      currentId = lastId;
+      populateEditor(notes.find(n => n.id === lastId));
+    } else {
+      currentId = notes[0].id;
+      populateEditor(notes[0]);
+    }
     setStatus((notes.length) + ' notas carregadas');
   } else {
     // Cria uma nota inicial e já salva
@@ -390,6 +434,12 @@ function init() {
   renderNotes();
   // Inicializa Firebase (se houver configuração em firebase-config.js)
   initFirebaseIfAvailable();
+  // Aplica sempre o tema escuro
+  applyTheme();
 }
 
-init();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
