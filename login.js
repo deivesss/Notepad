@@ -86,7 +86,7 @@ loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
-  if (!email || !password) return alert('Preencha email e senha');
+  if (!email || !password) return alert('Preencha com suas credenciais.');
   signInWithEmail(email, password);
 });
 
@@ -96,7 +96,7 @@ registerForm.addEventListener('submit', async (e) => {
   const password = document.getElementById('registerPassword').value;
   const confirm = document.getElementById('registerPasswordConfirm').value;
   if (!email || !password || !confirm) return alert('Preencha todos os campos');
-  if (password !== confirm) return alert('As senhas não coincidem');
+  if (password !== confirm) return alert('As senhas não coincidem.');
   // Validação de senha forte
   const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
   if (!strongRegex.test(password)) {
