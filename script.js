@@ -314,13 +314,7 @@ async function signInWithEmail(email, password) {
 async function signOut() {
   if (!firebaseAuth) return;
   await firebaseAuth.signOut();
-  // Limpa notas locais da sessão ao sair
-  notes = [];
-  currentId = null;
-  saveToStorage();
-  renderNotes();
-  noteTitle.value = '';
-  editor.value = '';
+  // after sign out, remain localStorage data
   setStatus('Desconectado');
 }
 
@@ -422,13 +416,6 @@ function init() {
     }
     setStatus((notes.length) + ' notas carregadas');
   } else {
-    // Cria uma nota inicial e já salva
-    const id = 'note_' + Math.random().toString(36).slice(2,9);
-    const note = { id, title: '', content: '', updated: now() };
-    notes.unshift(note);
-    currentId = id;
-    saveToStorage();
-    populateEditor(note);
     setStatus('Sem notas — clique em + para criar');
   }
   renderNotes();
