@@ -95,13 +95,10 @@ registerForm.addEventListener('submit', async (e) => {
   const email = document.getElementById('registerEmail').value.trim();
   const password = document.getElementById('registerPassword').value;
   const confirm = document.getElementById('registerPasswordConfirm').value;
-  if (!email || !password || !confirm) return alert('Preencha todos os campos');
+  if (!email || !password || !confirm) return alert('Preencha todos os campos.');
   if (password !== confirm) return alert('As senhas não coincidem.');
   // Validação de senha forte
   const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
-  if (!strongRegex.test(password)) {
-    return alert('A senha deve ter pelo menos 8 caracteres, incluindo maiúscula, minúscula, número e símbolo.');
-  }
   if (!auth) return alert('Firebase não configurado. Veja README.');
   try {
     await auth.createUserWithEmailAndPassword(email, password);
