@@ -29,6 +29,38 @@ const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
 const sidebarToggleBtnMobile = document.getElementById('sidebarToggleBtnMobile');
 const showSidebarBtn = document.getElementById('showSidebarBtn');
 
+// Bloqueio de edição no mobile quando a sidebar está expandida
+const mobileMql = window.matchMedia('(max-width: 720px)');
+function isSidebarExpanded() {
+  return sidebar && !sidebar.classList.contains('collapsed');
+}
+function setEditorLocked(locked) {
+  noteTitle.readOnly = !!locked;
+  editor.readOnly = !!locked;
+  if (locked) {
+    document.body.classList.add('editor-locked');
+    if (document.activeElement === noteTitle || document.activeElement === editor) {
+      document.activeElement.blur();
+    }
+  } else {
+    document.body.classList.remove('editor-locked');
+  }
+}
+function updateEditorInteractivityForMobile() {
+  const lock = mobileMql.matches && isSidebarExpanded();
+  setEditorLocked(lock);
+}
+// Evita foco quando travado (impede teclado móvel)
+function preventFocusWhenLocked(e) {
+  if (document.body.classList.contains('editor-locked')) {
+    e.preventDefault();
+    e.target.blur();
+  }
+}
+noteTitle.addEventListener('focus', preventFocusWhenLocked, true);
+editor.addEventListener('focus', preventFocusWhenLocked, true);
+mobileMql.addEventListener?.('change', updateEditorInteractivityForMobile);
+
 // Estado
 let notes = []; // { id, title, content, updated }
 let currentId = null;
@@ -296,6 +328,16 @@ async function initFirebaseIfAvailable() {
         currentUser = null;
         loginBtn.style.display = '';
         logoutBtn.style.display = 'none';
+        // Limpa notas locais ao desconectar (segurança)
+        notes = [];
+        currentId = null;
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(LAST_NOTE_KEY);
+        } catch (_) {}
+        noteTitle.value = '';
+        editor.value = '';
+        renderNotes();
         setStatus('Desconectado');
       }
     });
@@ -334,8 +376,19 @@ async function signInWithEmail(email, password) {
 
 async function signOut() {
   if (!firebaseAuth) return;
+  const prevUid = currentUser;
   await firebaseAuth.signOut();
-  // after sign out, remain localStorage data
+  // Limpa dados locais imediatamente por segurança
+  notes = [];
+  currentId = null;
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(LAST_NOTE_KEY);
+    if (prevUid) localStorage.removeItem(LAST_NOTE_KEY + '_' + prevUid);
+  } catch (_) {}
+  noteTitle.value = '';
+  editor.value = '';
+  renderNotes();
   setStatus('Desconectado');
 }
 
@@ -359,6 +412,8 @@ function toggleSidebar() {
   if (showSidebarBtn) {
     showSidebarBtn.style.display = collapsed ? 'block' : 'none';
   }
+  // Atualiza interatividade do editor no mobile
+  updateEditorInteractivityForMobile();
 }
 sidebarToggleBtn?.addEventListener('click', toggleSidebar);
 sidebarToggleBtnMobile?.addEventListener('click', toggleSidebar);
@@ -366,6 +421,8 @@ showSidebarBtn?.addEventListener('click', () => {
   sidebar.classList.remove('collapsed');
   document.body.classList.remove('sidebar-collapsed');
   showSidebarBtn.style.display = 'none';
+  // Atualiza interatividade do editor no mobile
+  updateEditorInteractivityForMobile();
 });
 newNoteBtn.addEventListener('click', newNote);
 exportBtn.addEventListener('click', exportNotes);
@@ -448,6 +505,10 @@ function init() {
   if (showSidebarBtn && window.matchMedia('(max-width: 720px)').matches) {
     showSidebarBtn.style.display = 'none';
   }
+  // Ajusta interatividade do editor conforme estado da sidebar no mobile
+  updateEditorInteractivityForMobile();
+  // Atualiza também ao redimensionar
+  window.addEventListener('resize', updateEditorInteractivityForMobile);
 }
 
 if (document.readyState === 'loading') {
