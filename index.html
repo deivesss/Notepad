@@ -20,9 +20,30 @@
                 <h1>Notepad</h1>
                 <div style="display:flex; gap:8px; align-items:center;">
                   <button id="sidebarToggleBtn" title="Recolher menu" aria-label="Recolher menu">≡</button>
+                  <button id="accountBtn" title="Conta" aria-label="Conta">👤</button>
                   <button id="newNoteBtn" title="Nova nota" aria-label="Nova nota">+</button>
                 </div>
             </header>
+            <div id="accountMenu" class="popup-menu account-menu" hidden>
+                <div id="accountMenuLogged" class="menu-section">
+                    <div class="menu-stats">
+                        <div>Primeiro login: <span id="statFirstLogin">—</span></div>
+                        <div>Notas criadas: <span id="statNotesCreated">0</span></div>
+                        <div>Notas excluídas: <span id="statNotesDeleted">0</span></div>
+                        <div>Caracteres escritos: <span id="statCharsWritten">0</span></div>
+                    </div>
+                    <div class="menu-actions">
+                        <button id="menuExportBtn">Exportar</button>
+                        <input id="menuImportInput" type="file" accept="application/json" style="display:none" />
+                        <button id="menuImportBtn">Importar</button>
+                        <button id="menuClearAllBtn">Limpar notas</button>
+                        <button id="menuLogoutBtn">Sair</button>
+                    </div>
+                </div>
+                <div id="accountMenuLoggedOut" class="menu-section" style="display:none">
+                    <button id="menuLoginBtn">Fazer login</button>
+                </div>
+            </div>
 
             <div class="search-wrap">
                 <input id="search" placeholder="Pesquisar notas..." aria-label="Pesquisar notas" />
@@ -55,6 +76,11 @@
 
             <div class="status-bar">
                 <span id="status" role="status" aria-live="polite">Sem notas — clique em + para criar</span>
+            </div>
+            <button id="noteActionsFab" title="Ações da nota" aria-label="Ações da nota">⋮</button>
+            <div id="noteActionsMenu" class="popup-menu note-actions-menu" hidden>
+                <button id="menuDownloadBtn">Baixar .txt</button>
+                <button id="menuDeleteBtn">Excluir nota</button>
             </div>
         </main>
     </div>

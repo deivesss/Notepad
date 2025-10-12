@@ -77,6 +77,21 @@ body {
   border-bottom: 1px solid rgba(123,76,255,0.10);
 }
 
+/* Botão de conta */
+#accountBtn {
+  background: transparent;
+  color: var(--accent-2);
+  border: 1px solid rgba(123,76,255,0.20);
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+#accountBtn:hover { background: rgba(123,76,255,0.10); }
+
 .sidebar-header h1 {
   margin: 0;
   font-size: 20px;
@@ -178,6 +193,8 @@ body {
   margin-top: 12px;
   flex-wrap: wrap;
 }
+/* Opções agora ficam no menu da conta */
+.sidebar-footer { display: none; }
 .sidebar-footer button {
   flex: 1 1 45%;
   padding: 10px 12px;
@@ -222,6 +239,61 @@ body {
   font-size: 16px;
 }
 .editor-actions { display: flex; gap: 8px; }
+
+/* Popup menus genéricos */
+.popup-menu {
+  position: absolute;
+  z-index: 80;
+  min-width: 220px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(123,76,255,0.20);
+  background: linear-gradient(180deg, rgba(18,14,24,0.94), rgba(18,14,24,0.88));
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+}
+.popup-menu button {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(123,76,255,0.16);
+  background: linear-gradient(180deg, rgba(123,76,255,0.07), rgba(255,255,255,0.02));
+  color: var(--accent-2);
+}
+.popup-menu button + button { margin-top: 8px; }
+
+/* Menu da conta (posicionado sob o header da sidebar) */
+.account-menu {
+  left: 12px;
+  right: 12px;
+  top: 60px;
+}
+.account-menu .menu-stats { color: var(--muted); font-size: 14px; margin-bottom: 10px; }
+.account-menu .menu-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.account-menu .menu-actions button { text-align: center; }
+
+/* FAB e menu da nota */
+#noteActionsFab {
+  position: fixed;
+  right: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 75;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(123,76,255,0.25);
+  background: linear-gradient(180deg, rgba(123,76,255,0.18), rgba(255,255,255,0.03));
+  color: var(--accent-2);
+  box-shadow: 0 10px 24px rgba(123,76,255,0.24);
+}
+.note-actions-menu {
+  position: fixed;
+  right: 16px;
+  bottom: calc(80px + env(safe-area-inset-bottom));
+  min-width: 180px;
+}
 .editor-actions button {
   padding: 10px 12px;
   border-radius: 10px;
@@ -402,6 +474,10 @@ body {
 @media (max-width: 720px) {
   /* Mantém layout em colunas (sidebar à esquerda) e transforma a sidebar num painel fixo com transição */
   #app { flex-direction: row; padding: 8px; gap: 8px; height: 100vh; min-height: 100vh; }
+  .account-menu { left: 8px; right: auto; min-width: 64vw; top: 56px; }
+  #noteActionsFab { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); width: 46px; height: 46px; }
+  .note-actions-menu { right: 12px; bottom: calc(72px + env(safe-area-inset-bottom)); }
+}
 
   /* Sidebar fixa na esquerda com slide-in/out */
   #sidebar {
@@ -476,41 +552,8 @@ body {
     background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
   }
 
-  /* Barra fixa de ações (Baixar / Excluir) na parte inferior */
-  .editor-actions {
-    position: fixed;
-    left: 12px;
-    right: 12px;
-    bottom: calc(12px + env(safe-area-inset-bottom));
-    z-index: 70;
-    display: flex;
-    gap: 10px;
-    padding: 8px;
-    border-radius: 12px;
-    background: linear-gradient(180deg, rgba(18,14,24,0.72), rgba(18,14,24,0.62));
-    backdrop-filter: blur(12px) saturate(120%);
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-    border: 1px solid rgba(123,76,255,0.18);
-    box-shadow: 0 10px 26px rgba(0,0,0,0.35);
-  }
-  .editor-actions button {
-    flex: 1 1 0;
-    padding: 12px 14px;
-    font-size: 15px;
-    border-radius: 12px;
-  }
-  #downloadBtn {
-    border-color: rgba(123,76,255,0.35);
-    background: linear-gradient(180deg, rgba(123,76,255,0.18), rgba(255,255,255,0.04));
-    color: var(--text);
-  }
-  #deleteBtn {
-    border-color: rgba(255,86,86,0.45);
-    color: #ff8b8b;
-    background: linear-gradient(180deg, rgba(255,86,86,0.18), rgba(255,255,255,0.03));
-  }
-  /* Evita que a barra cubra o editor */
-  #editor { padding-bottom: 110px; }
+  /* No mobile, ocultamos os botões clássicos e usamos o FAB + popup */
+  .editor-actions { display: none; }
 }
 
 /* Mobile: bloqueio visual quando a sidebar está expandida (evita teclado abrir) */
