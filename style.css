@@ -532,7 +532,7 @@ body {
   .editor-header { flex-direction: column; gap: 8px; align-items: stretch; }
   #noteTitle { font-size: 16px; padding: 10px; }
   .editor-actions button { font-size: 15px; padding: 8px 10px; }
-  #editor { padding: 14px; font-size: 15px; min-height: 48vh; }
+  #editor { padding: 14px; font-size: 15px; min-height: 42vh; }
 }
 
 @media (max-width: 480px) {
@@ -557,7 +557,7 @@ body {
   .editor-header { gap: 8px; }
   #noteTitle { padding: 10px; font-size: 15px; }
   .editor-actions button { padding: 8px 10px; font-size: 14px; }
-  #editor { padding: 12px; font-size: 15px; min-height: 52vh; }
+  #editor { padding: 12px; font-size: 15px; min-height: 46vh; }
   .status-bar { height: 30px; padding: 6px 10px; font-size: 12px; }
   .auth-card { width: 98vw; padding: 12px; }
 }
