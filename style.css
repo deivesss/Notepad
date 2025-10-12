@@ -49,10 +49,24 @@ body {
   flex-direction: column;
   border: 1px solid rgba(123,76,255,0.13);
   min-height: 0; /* evita overflow interno */
+  /* Novos ajustes para transição e colapso suave */
+  overflow: hidden;
+  flex: 0 0 320px;
+  transition: transform .28s var(--spring), width .28s var(--spring), padding .28s var(--spring), border-color .28s var(--spring), opacity .2s var(--spring), flex-basis .28s var(--spring);
+  will-change: transform, width, opacity;
 }
 
 /* estado colapsado (JS alterna classe) */
-#sidebar.collapsed { display: none; }
+#sidebar.collapsed {
+  /* Em telas grandes, encolhe ocupando 0 no layout */
+  flex-basis: 0;
+  width: 0;
+  padding: 0;
+  border-color: transparent;
+  opacity: 0;
+  transform: translateX(-8px);
+  pointer-events: none;
+}
 
 .sidebar-header {
   display: flex;
@@ -328,9 +342,34 @@ body {
 }
 
 @media (max-width: 720px) {
-  #app { flex-direction: column; padding: 8px; gap: 8px; height: auto; min-height: 100vh; }
-  #sidebar { width: 100%; order: 2; padding: 10px 8px; min-width: 0; }
-  #editorWrap { order: 1; }
+  /* Mantém layout em colunas (sidebar à esquerda) e transforma a sidebar num painel fixo com transição */
+  #app { flex-direction: row; padding: 8px; gap: 8px; height: 100vh; min-height: 100vh; }
+
+  /* Sidebar fixa na esquerda com slide-in/out */
+  #sidebar {
+    position: fixed;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    height: auto;
+    width: min(78vw, 320px);
+    max-width: 88vw;
+    flex: 0 0 auto; /* não participa do fluxo do flex container quando fixa */
+    z-index: 60;
+    padding: 12px 8px 10px 8px;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  #sidebar.collapsed {
+    /* no mobile, desliza para fora em vez de encolher a largura */
+    transform: translateX(calc(-100% - 12px));
+    width: min(78vw, 320px);
+    padding: 12px 8px 10px 8px;
+    border-color: rgba(123,76,255,0.13);
+    opacity: 0;
+  }
+
+  #editorWrap { order: 0; }
   .sidebar-header h1 { font-size: 18px; }
   .editor-header { flex-direction: column; gap: 8px; align-items: stretch; }
   #noteTitle { font-size: 16px; padding: 10px; }
