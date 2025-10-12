@@ -6,19 +6,22 @@
     <title>Notepad — Black & Purple</title>
     <link rel="stylesheet" href="style.css">
     <meta name="theme-color" content="#0b0b0f">
-    <script defer src="script.js"></script>
     <!-- Firebase SDKs (compat) - crie firebase-config.js com suas credenciais ou defina window.FIREBASE_CONFIG -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-    <script src="firebase-config.js" onerror="console.info('firebase-config.js não encontrado — crie a partir de firebase-config.sample.js')"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script defer src="firebase-config.js" onerror="console.info('firebase-config.js não encontrado — crie a partir de firebase-config.sample.js')"></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
     <div id="app">
         <aside id="sidebar">
             <header class="sidebar-header">
                 <h1>Notepad</h1>
-                <button id="newNoteBtn" title="Nova nota">+</button>
+                <div style="display:flex; gap:8px; align-items:center;">
+                  <button id="sidebarToggleBtn" title="Recolher menu" aria-label="Recolher menu">≡</button>
+                  <button id="newNoteBtn" title="Nova nota" aria-label="Nova nota">+</button>
+                </div>
             </header>
 
             <div class="search-wrap">
@@ -51,10 +54,12 @@
             <textarea id="editor" spellcheck="true" placeholder="Escreva sua nota aqui..."></textarea>
 
             <div class="status-bar">
-                <span id="status">Sem notas — clique em + para criar</span>
+                <span id="status" role="status" aria-live="polite">Sem notas — clique em + para criar</span>
             </div>
         </main>
     </div>
+
+    <button id="showSidebarBtn" title="Mostrar menu" aria-label="Mostrar menu">Menu</button>
 
     <template id="noteItemTpl">
         <li class="note-item" data-id="">

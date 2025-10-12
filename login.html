@@ -7,19 +7,19 @@
   <link rel="stylesheet" href="style.css">
   <meta name="theme-color" content="#0b0b0f">
   <!-- Firebase SDKs (compat) -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <script src="firebase-config.js" onerror="console.info('firebase-config.js não encontrado — crie a partir de firebase-config.sample.js')"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script defer src="firebase-config.js" onerror="console.info('firebase-config.js não encontrado — crie a partir de firebase-config.sample.js')"></script>
   <script defer src="login.js"></script>
 </head>
 <body>
   <main class="auth-page">
     <section class="auth-card">
 
-      <div id="formToggle" style="display:flex;justify-content:center;gap:16px;margin-bottom:16px;">
-        <button id="showLoginBtn" class="primary" type="button"><b>Entrar</b></button>
-        <button id="showRegisterBtn" type="button"><b>Criar Conta</b></button>
+      <div id="formToggle" style="display:flex;justify-content:center;gap:16px;margin-bottom:16px;" role="tablist" aria-label="Alternar entre Entrar e Criar Conta">
+        <button id="showLoginBtn" class="primary" type="button" role="tab" aria-selected="true"><b>Entrar</b></button>
+        <button id="showRegisterBtn" type="button" role="tab" aria-selected="false"><b>Criar Conta</b></button>
       </div>
       <form id="loginForm">
         <h2>Entrar no Notepad</h2>
@@ -29,9 +29,9 @@
         </div>
         <hr />
         <label for="loginEmail"><b>Email</b></label>
-        <input id="loginEmail" type="email" required />
+        <input id="loginEmail" type="email" required autocomplete="email" />
         <label for="loginPassword"><b>Senha</b></label>
-        <input id="loginPassword" type="password" required />
+        <input id="loginPassword" type="password" required autocomplete="current-password" />
         <div style="display:flex;gap:8px;margin-top:10px;">
           <button type="submit" class="primary"><b>Entrar</b></button>
         </div>
@@ -40,12 +40,12 @@
       <form id="registerForm" style="display:none">
         <h2>Criar conta</h2>
         <label for="registerEmail"><b>Email</b></label>
-        <input id="registerEmail" type="email" required />
+        <input id="registerEmail" type="email" required autocomplete="email" />
         <label for="registerPassword"><b>Senha</b></label>
-        <input id="registerPassword" type="password" required minlength="8"/>
+        <input id="registerPassword" type="password" required minlength="8" autocomplete="new-password"/>
            <small class="muted">A senha deve ter pelo menos 8 caracteres.<br></small>
         <label for="registerPasswordConfirm"><br><b>Confirme sua Senha</b></label>
-        <input id="registerPasswordConfirm" type="password" required />
+        <input id="registerPasswordConfirm" type="password" required autocomplete="new-password" />
         <div style="display:flex;gap:8px;margin-top:10px;">
           
           <div>

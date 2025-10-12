@@ -52,7 +52,17 @@ const formatDate = iso => {
 }
 
 const saveToStorage = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
-const loadFromStorage = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+const loadFromStorage = () => {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (_) {
+    console.warn('Storage corrompido. Limpando cache local.');
+    return [];
+  }
+};
 
 // Firestore helpers
 async function saveNotesToFirestore() {
@@ -208,18 +218,29 @@ function importNotes(file) {
     try {
       const imported = JSON.parse(reader.result);
       if (!Array.isArray(imported)) throw new Error('Formato inválido');
-      // basic validation
-      const clean = imported.map(n => ({
-        id: n.id || 'note_' + Math.random().toString(36).slice(2,9),
-        title: n.title || '',
-        content: n.content || '',
-        updated: n.updated || now()
-      }));
+      // saneamento básico e deduplicação por id
+      const seen = new Set(notes.map(n => n.id));
+      const clean = imported
+        .slice(0, 2000) // evita import massivo acidental
+        .map(n => ({
+          id: (n && typeof n.id === 'string' && n.id.trim()) || 'note_' + Math.random().toString(36).slice(2,9),
+          title: (n && typeof n.title === 'string' ? n.title : ''),
+          content: (n && typeof n.content === 'string' ? n.content : ''),
+          updated: (n && typeof n.updated === 'string' ? n.updated : now())
+        }))
+        .filter(n => {
+          if (seen.has(n.id)) return false; // pula duplicados
+          // limitações simples de tamanho
+          if (n.title.length > 500) n.title = n.title.slice(0, 500);
+          if (n.content.length > 500000) n.content = n.content.slice(0, 500000);
+          seen.add(n.id);
+          return true;
+        });
       notes = clean.concat(notes);
       saveToStorage();
-  if (useFirestore()) saveNotesToFirestore();
+      if (useFirestore()) saveNotesToFirestore();
       renderNotes();
-      setStatus('Importação concluída');
+      setStatus('Importação concluída (' + clean.length + ' novas notas)');
     } catch (err) {
       alert('Erro ao importar: ' + err.message);
     }
@@ -334,16 +355,16 @@ logoutBtn?.addEventListener('click', async () => {
 function toggleSidebar() {
   if (!sidebar) return;
   const collapsed = sidebar.classList.toggle('collapsed');
-  if (collapsed) {
-    showSidebarBtn.style.display = 'block';
-  } else {
-    showSidebarBtn.style.display = 'none';
+  document.body.classList.toggle('sidebar-collapsed', collapsed);
+  if (showSidebarBtn) {
+    showSidebarBtn.style.display = collapsed ? 'block' : 'none';
   }
 }
 sidebarToggleBtn?.addEventListener('click', toggleSidebar);
 sidebarToggleBtnMobile?.addEventListener('click', toggleSidebar);
 showSidebarBtn?.addEventListener('click', () => {
   sidebar.classList.remove('collapsed');
+  document.body.classList.remove('sidebar-collapsed');
   showSidebarBtn.style.display = 'none';
 });
 newNoteBtn.addEventListener('click', newNote);
@@ -423,6 +444,10 @@ function init() {
   initFirebaseIfAvailable();
   // Aplica sempre o tema escuro
   applyTheme();
+  // Garante estado inicial do botão flutuante no mobile
+  if (showSidebarBtn && window.matchMedia('(max-width: 720px)').matches) {
+    showSidebarBtn.style.display = 'none';
+  }
 }
 
 if (document.readyState === 'loading') {
