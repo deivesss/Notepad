@@ -228,9 +228,12 @@ body {
   display: flex;
   gap: 12px;
   align-items: center;
+  min-width: 0; /* permite encolher filhos dentro do flex */
 }
 #noteTitle {
   flex: 1;
+  min-width: 0; /* crucial para permitir encolher no flex */
+  width: 100%;
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.03);
@@ -287,12 +290,27 @@ body {
   background: linear-gradient(180deg, rgba(123,76,255,0.18), rgba(255,255,255,0.03));
   color: var(--accent-2);
   box-shadow: 0 10px 24px rgba(123,76,255,0.24);
+  display: none; /* visível apenas com sidebar recolhida */
 }
 .note-actions-menu {
   position: fixed;
   right: 16px;
   bottom: calc(80px + env(safe-area-inset-bottom));
   min-width: 180px;
+}
+
+/* FAB acessível apenas quando a sidebar estiver recolhida */
+.sidebar-collapsed #noteActionsFab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Desktop: quando a sidebar estiver exposta, reduzir caixas de texto */
+@media (min-width: 721px) {
+  body:not(.sidebar-collapsed) .editor-header { gap: 8px; }
+  body:not(.sidebar-collapsed) #noteTitle { padding: 10px 12px; font-size: 15px; }
+  body:not(.sidebar-collapsed) #editor { padding: 14px; font-size: 14.5px; }
 }
 .editor-actions button {
   padding: 10px 12px;
@@ -308,6 +326,8 @@ body {
 }
 #editor {
   flex: 1;
+  min-width: 0; /* garante que o textarea encolha junto com o container */
+  width: 100%;
   resize: none;
   padding: 18px;
   border-radius: 12px;
@@ -567,5 +587,22 @@ body {
     border-color: rgba(123,76,255,0.38) !important;
     box-shadow: inset 0 0 0 2px rgba(123,76,255,0.16);
     cursor: not-allowed;
+  }
+}
+
+/* Mobile: centralização vertical do painel de login/cadastro */
+@media (max-width: 720px) {
+  .auth-page {
+    min-height: 100dvh;
+    height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)) 12px;
+    overflow: hidden; /* evita rolagem residual do container */
+  }
+  .auth-card {
+    margin: 0; /* garante centralização exata */
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow: auto; /* se necessário, rola apenas o conteúdo do card */
   }
 }

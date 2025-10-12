@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notepad</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="shortcut icon" href="logo.png">
     <meta name="theme-color" content="#0b0b0f">
     <!-- Firebase SDKs (compat) - crie firebase-config.js com suas credenciais ou defina window.FIREBASE_CONFIG -->
     <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -17,7 +20,7 @@
     <div id="app">
         <aside id="sidebar">
             <header class="sidebar-header">
-                <h1>Notepad</h1>
+                <h1 class="brand"><img src="logo.png" alt="Logo" style="width:20px;height:20px;vertical-align:-4px;margin-right:8px;border-radius:4px;">Notepad</h1>
                 <div style="display:flex; gap:8px; align-items:center;">
                   <button id="sidebarToggleBtn" title="Recolher menu" aria-label="Recolher menu">≡</button>
                   <button id="accountBtn" title="Conta" aria-label="Conta">👤</button>

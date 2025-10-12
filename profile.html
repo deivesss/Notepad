@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Perfil — Notepad</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="logo.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="shortcut icon" href="logo.png">
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="firebase-config.js" onerror="console.info('firebase-config.js não encontrado')"></script>
@@ -35,7 +38,7 @@
 <body>
   <main class="auth-page">
     <section class="auth-card">
-      <h2>Perfil</h2>
+      <h2><img src="logo.png" alt="Logo" style="width:20px;height:20px;vertical-align:-4px;margin-right:8px;border-radius:4px;">Perfil</h2>
       <dl>
         <dt>Nome</dt>
         <dd id="name">—</dd>

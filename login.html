@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Login — Notepad</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="logo.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="shortcut icon" href="logo.png">
   <meta name="theme-color" content="#0b0b0f">
   <!-- Firebase SDKs (compat) -->
   <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -22,7 +25,7 @@
         <button id="showRegisterBtn" type="button" role="tab" aria-selected="false"><b>Criar Conta</b></button>
       </div>
       <form id="loginForm">
-        <h2>Entrar no Notepad</h2>
+        <h2><img src="logo.png" alt="Logo" style="width:20px;height:20px;vertical-align:-4px;margin-right:8px;border-radius:4px;">Entrar no Notepad</h2>
         <p class="muted">Escolha um método de autenticação</p>
         <div class="auth-actions">
           <button id="googleBtn" class="primary" type="button"><b>Login com Google</b></button>
@@ -38,7 +41,7 @@
       </form>
 
       <form id="registerForm" style="display:none">
-        <h2>Criar conta</h2>
+        <h2><img src="logo.png" alt="Logo" style="width:20px;height:20px;vertical-align:-4px;margin-right:8px;border-radius:4px;">Criar conta</h2>
         <label for="registerEmail"><b>Email</b></label>
         <input id="registerEmail" type="email" required autocomplete="email" />
         <label for="registerPassword"><b>Senha</b></label>
