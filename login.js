@@ -71,13 +71,25 @@ function animateForm(show, hide) {
 
 showLoginBtn.addEventListener('click', () => {
   animateForm(loginForm, registerForm);
+  // Visual ativo
   showLoginBtn.classList.add('primary');
   showRegisterBtn.classList.remove('primary');
+  // Estado ARIA e foco
+  showLoginBtn.setAttribute('aria-selected', 'true');
+  showRegisterBtn.setAttribute('aria-selected', 'false');
+  showRegisterBtn.blur();
+  showLoginBtn.focus();
 });
 showRegisterBtn.addEventListener('click', () => {
   animateForm(registerForm, loginForm);
+  // Visual ativo
   showLoginBtn.classList.remove('primary');
   showRegisterBtn.classList.add('primary');
+  // Estado ARIA e foco
+  showLoginBtn.setAttribute('aria-selected', 'false');
+  showRegisterBtn.setAttribute('aria-selected', 'true');
+  showLoginBtn.blur();
+  showRegisterBtn.focus();
 });
 
 googleBtn.addEventListener('click', signInWithGoogle);
