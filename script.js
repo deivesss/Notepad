@@ -248,8 +248,8 @@ function newNote() {
   noteTitle.focus();
   setStatus('Nova nota criada');
   incStat('notesCreated', 1);
-  // Ao criar e entrar na nova nota, colapsa a sidebar no mobile
-  if (mobileMql.matches) collapseSidebarInstant();
+  // Ao criar e entrar na nova nota, colapsa a sidebar em qualquer viewport
+  collapseSidebarInstant();
 }
 
 function populateEditor(note) {
@@ -271,8 +271,8 @@ function openNote(id) {
   } else {
     localStorage.setItem(LAST_NOTE_KEY, id);
   }
-  // Ao entrar numa nota, oculta a sidebar instantaneamente no mobile
-  if (mobileMql.matches) collapseSidebarInstant();
+  // Ao entrar numa nota, oculta a sidebar instantaneamente
+  collapseSidebarInstant();
 }
 
 function saveCurrentNote() {
