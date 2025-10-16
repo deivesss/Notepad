@@ -591,6 +591,27 @@ menuDownloadBtn?.addEventListener('click', (e) => { e.stopPropagation(); downloa
 menuDeleteBtn?.addEventListener('click', (e) => { e.stopPropagation(); deleteCurrentNote(); closeAllPopups(); });
 
 document.addEventListener('click', () => closeAllPopups());
+// Unificado: Fechar popups e/ou sidebar ao clicar fora
+document.addEventListener('click', (e) => {
+  // 1. Lógica para fechar a sidebar
+  const isSidebarOpen = sidebar && !sidebar.classList.contains('collapsed');
+  if (isSidebarOpen) {
+    // Elementos cujo clique NÃO deve fechar a sidebar
+    const isClickOnSidebar = sidebar.contains(e.target);
+    const isClickOnShowBtn = showSidebarBtn && showSidebarBtn.contains(e.target);
+    // Clicar no botão da conta não deve fechar a sidebar, pois ele abre um menu
+    const isClickOnAccountBtn = accountBtn && accountBtn.contains(e.target);
+
+    if (!isClickOnSidebar && !isClickOnShowBtn && !isClickOnAccountBtn) {
+      // Se o clique foi fora da sidebar e de seus botões de controle, fecha ela.
+      toggleSidebar();
+    }
+  }
+
+  // 2. Lógica para fechar todos os popups (original)
+  closeAllPopups();
+});
+
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllPopups(); });
 clearAllBtn.addEventListener('click', clearAllNotes);
 downloadBtn.addEventListener('click', downloadCurrentAsTxt);
