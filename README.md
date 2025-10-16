@@ -31,7 +31,8 @@ para quem quer escrever sem distrações, mas com um toque de elegância.
 
 - 💜 **Tema roxo escuro e preto** — ideal para quem ama interfaces elegantes e noturnas.  
 - 🔑 **Login via e-mail ou conta Google** — acesso fácil e seguro.  
-- 💾 **Salvamento local e sincronizado** — seus textos permanecem salvos automaticamente.  
+- 💾 **Salvamento online e sincronizado** — seus textos permanecem salvos automaticamente.  
+- 🗃️ **Possibilidade de importar/exportar Notas** - salve suas notas localmente ou compartilhe-as.
 - 📱 **Design responsivo** — adaptado para desktop, tablet e celular.  
 - ⚡ **Interface minimalista** — sem menus confusos, apenas o essencial para escrever.  
 - 🔒 **Foco na privacidade** — nenhum dado sensível é compartilhado.
