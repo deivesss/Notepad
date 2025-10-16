@@ -1,47 +1,73 @@
-Notepad — Black & Purple
+<p align="center">
+  <img src="logo.png" alt="Logo do Notepad Online" width="120" />
+</p>
 
-Projeto simples: um notepad online com tema escuro preto e roxo.
+<h1 align="center">🌙 Notepad Online</h1>
 
-Funcionalidades:
-- Criar múltiplas notas
-- Editar e salvar automaticamente (localStorage)
-- Buscar notas
-- Exportar/Importar notas (.json)
-- Baixar nota como .txt
-- Atalhos: Ctrl+N (nova nota), Ctrl+S (salvar), Delete (apagar nota selecionada)
+<p align="center">
+  Um bloco de notas moderno, minimalista e online — envolto em tons de <strong>roxo escuro</strong> e <strong>preto</strong>, feito para quem escreve com estilo e foco.
+</p>
 
-Como usar:
-1. Abra `index.html` no navegador.
-2. Clique em + para criar uma nota.
-3. Use o campo de busca para filtrar notas.
-4. Exportar/Importar no rodapé da sidebar.
+<p align="center">
+  <a href="https://deivesss.github.io/Notepad/" target="_blank">
+    <img src="https://img.shields.io/badge/Acessar%20Site-7b5af7?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Acesse o site" />
+  </a>
+  <img src="https://img.shields.io/badge/Status-Online-7b5af7?style=for-the-badge" alt="Status: Online" />
+  <img src="https://img.shields.io/badge/Licença-MIT-444?style=for-the-badge" alt="Licença MIT" />
+</p>
 
-Observações:
-- As notas são salvas no armazenamento local do navegador (localStorage).
-- Importar adiciona as notas do arquivo ao topo da lista.
+---
 
-Autenticação (opcional) - Firebase
----------------------------------
-Para permitir login por Google ou e-mail/senha e sincronizar notas por usuário, siga estes passos:
+## 🖤 Sobre o Projeto
 
-1. Crie um projeto no Firebase (https://console.firebase.google.com/).
-2. Ative Authentication -> Sign-in method -> Google e Email/Password.
-3. Ative Firestore Database em modo de teste (ou configure regras apropriadas).
-4. Copie as configurações do projeto (Project settings -> SDK) e crie um arquivo `firebase-config.js` na raiz do projeto com o conteúdo:
+O **Notepad Online** é um site projetado para ser seu espaço pessoal de escrita —  
+leve, seguro e acessível de qualquer dispositivo.  
+Com um design em **roxo escuro e preto**, ele oferece uma atmosfera imersiva e relaxante  
+para quem quer escrever sem distrações, mas com um toque de elegância.
 
-```js
-window.FIREBASE_CONFIG = {
-	apiKey: "...",
-	authDomain: "your-project.firebaseapp.com",
-	projectId: "your-project-id",
-	storageBucket: "your-project.appspot.com",
-	messagingSenderId: "...",
-	appId: "1:...:web:..."
-};
-```
+---
 
-Ou copie `firebase-config.sample.js` para `firebase-config.js` e cole as credenciais.
+## ✨ Recursos Principais
 
-Ao abrir `index.html`, se o Firebase estiver configurado, o botão "Entrar" permitirá login via Google ou via e-mail/senha.
+- 💜 **Tema roxo escuro e preto** — ideal para quem ama interfaces elegantes e noturnas.  
+- 🔑 **Login via e-mail ou conta Google** — acesso fácil e seguro.  
+- 💾 **Salvamento local e sincronizado** — seus textos permanecem salvos automaticamente.  
+- 📱 **Design responsivo** — adaptado para desktop, tablet e celular.  
+- ⚡ **Interface minimalista** — sem menus confusos, apenas o essencial para escrever.  
+- 🔒 **Foco na privacidade** — nenhum dado sensível é compartilhado.
 
-Com o usuário logado, as notas serão sincronizadas no Firestore (coleção `notes`, documento por UID do usuário). Se não houver configuração do Firebase, o app continuará usando apenas o `localStorage`.
+---
+
+## 🧩 Tecnologias Utilizadas
+
+- 🟣 **HTML5** — estrutura e semântica do site  
+- ⚫ **CSS3** — tema escuro, tipografia e animações sutis  
+- 💜 **JavaScript (JS)** — lógica, interações e autenticação  
+- 🗂️ **JSON** — armazenamento e manipulação de dados locais  
+
+---
+
+## 🚀 Acesse Agora
+
+👉 **Site público:** [https://deivesss.github.io/Notepad/](https://deivesss.github.io/Notepad/)
+
+Não é necessário instalação. Basta abrir o link acima e começar a escrever.  
+Você pode entrar com **e-mail** ou **conta Google** para salvar suas anotações de forma segura.
+
+---
+
+## 📸 Preview
+
+<p align="center">
+  <img src="https://via.placeholder.com/900x450/0b0016/7b5af7?text=Notepad+Online+Preview" width="85%" alt="Preview do Notepad Online" />
+</p>
+
+*(substitua por uma captura real do site para deixar o README ainda mais bonito)*
+
+---
+
+## 🛠️ Como Executar Localmente (opcional)
+
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/deivesss/Notepad.git
