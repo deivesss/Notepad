@@ -59,15 +59,6 @@ Você pode entrar com **e-mail** ou **conta Google** para salvar suas anotaçõe
 ## 📸 Preview
 
 <p align="center">
-  <img src="https://via.placeholder.com/900x450/0b0016/7b5af7?text=Notepad+Online+Preview" width="85%" alt="Preview do Notepad Online" />
+  <img src="dashboard.png" width="85%" alt="Preview do Notepad Online - Dashboard" />
+  <img src="editordenotas.png" width="85%" alt="Preview do Notepad Online - Editor de Notas" />
 </p>
-
-*(substitua por uma captura real do site para deixar o README ainda mais bonito)*
-
----
-
-## 🛠️ Como Executar Localmente (opcional)
-
-1. Clone este repositório:
-   ```bash
-   git clone https://github.com/deivesss/Notepad.git
